@@ -1,0 +1,133 @@
+import { NextResponse } from 'next/server';
+import { scoreCache } from '@/lib/score-cache';
+import { mapESPNToGolfer, getTournamentInfo } from '@/lib/espn-api';
+import { ENTRANTS } from '@/lib/entrants-config';
+import { allGolfers } from '@/lib/dummy-data';
+import { LeaderboardEntry, Golfer, TournamentInfo } from '@/types/database';
+
+// Normalize name: strip diacritics and lowercase
+function normalizeName(name: string): string {
+  return name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+export async function GET(request: Request) {
+  try {
+    const data = await scoreCache.getData();
+    const tournamentInfo = getTournamentInfo(data);
+    
+    // Build a normalized name -> ESPN competitor map
+    const competitors = data.events[0]?.competitions[0]?.competitors || [];
+    const espnByName = new Map<string, any>();
+    competitors.forEach((comp) => {
+      espnByName.set(normalizeName(comp.athlete.displayName), comp);
+    });
+    
+    // Build a map from our dummy ID -> Golfer with live data
+    const golferMap = new Map<number, Golfer>();
+    allGolfers.forEach((dummyGolfer) => {
+      const nameNorm = normalizeName(dummyGolfer.name);
+      let comp = espnByName.get(nameNorm);
+      
+      if (!comp) {
+        const lastName = normalizeName(dummyGolfer.name.split(' ').pop() || '');
+        const firstName = normalizeName(dummyGolfer.name.split(' ')[0]);
+        for (const [espnName, espnComp] of espnByName) {
+          if (espnName.endsWith(lastName) && espnName.includes(firstName)) {
+            comp = espnComp;
+            break;
+          }
+        }
+      }
+      
+      if (comp) {
+        const currentRound = tournamentInfo?.current_round || 1;
+        const mapped = mapESPNToGolfer(comp, dummyGolfer.bucket, currentRound);
+        golferMap.set(dummyGolfer.id, { ...mapped, id: dummyGolfer.id, bucket: dummyGolfer.bucket });
+      } else {
+        // Pre-tournament fallback - no live score
+        golferMap.set(dummyGolfer.id, {
+          ...dummyGolfer,
+          live_score: null,
+          thru_hole: null,
+          today_score: null,
+          round_scores: [],
+          status: 'active' as const,
+          on_course: false,
+        });
+      }
+    });
+    
+    const isPre = !tournamentInfo || tournamentInfo.status === 'pre';
+    
+    // Build leaderboard
+    const leaderboard: LeaderboardEntry[] = ENTRANTS.map((entrant) => {
+      const allGolferIds = [
+        ...entrant.team.top12,
+        ...entrant.team.mid,
+        ...entrant.team.wildcard,
+      ];
+      
+      const entrantGolfers = allGolferIds
+        .map((id) => golferMap.get(id))
+        .filter((g): g is Golfer => g !== undefined);
+      
+      // Calculate best 4 scores
+      const { total, bestFour } = calculateScore(entrantGolfers, isPre);
+      
+      return {
+        entrant,
+        total_score: total,
+        best_four_golfers: bestFour,
+        all_golfers: entrantGolfers,
+        rank: 0,
+      };
+    });
+    
+    // Sort by total score and assign ranks
+    leaderboard.sort((a, b) => a.total_score - b.total_score);
+    leaderboard.forEach((entry, index) => {
+      entry.rank = index + 1;
+      if (index === 0) entry.prize_position = 1;
+      else if (index === 1) entry.prize_position = 2;
+      else if (index === 2) entry.prize_position = 3;
+    });
+    
+    return NextResponse.json(
+      {
+        leaderboard,
+        tournament: tournamentInfo,
+        timestamp: Date.now(),
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=15',
+        },
+      }
+    );
+  } catch (error) {
+    console.error('Leaderboard API error:', error);
+    return NextResponse.json(
+      { error: 'Failed to build leaderboard' },
+      { status: 500 }
+    );
+  }
+}
+
+function calculateScore(golfers: Golfer[], isPre: boolean): { total: number; bestFour: Golfer[] } {
+  if (isPre || golfers.length === 0) {
+    return { total: 0, bestFour: golfers.slice(0, 4) };
+  }
+  
+  const scored = golfers.map((g) => ({
+    golfer: g,
+    effectiveScore: g.status === 'cut' ? (g.live_score ?? 0) * 2 : (g.live_score ?? 0),
+  }));
+  
+  scored.sort((a, b) => a.effectiveScore - b.effectiveScore);
+  const bestFour = scored.slice(0, 4);
+  
+  return {
+    total: bestFour.reduce((sum, s) => sum + s.effectiveScore, 0),
+    bestFour: bestFour.map((s) => s.golfer),
+  };
+}

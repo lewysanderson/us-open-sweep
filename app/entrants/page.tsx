@@ -65,7 +65,7 @@ export default function EntrantsPage() {
   return (
     <MobileShell>
       {/* Header */}
-      <div className="bg-[var(--masters-green)] px-6 pt-10 pb-4 border-b border-[var(--masters-gold)]">
+      <div className="bg-[var(--usopen-navy)] px-6 pt-10 pb-4 border-b border-[var(--usopen-red)]">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-1">{ENTRANTS.length} Entrants</p>
         <h1 className="text-xl font-serif font-bold text-white">Entrants</h1>
       </div>
@@ -88,7 +88,7 @@ export default function EntrantsPage() {
           <button
             onClick={() => setSortBy('name')}
             className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full transition-colors ${
-              sortBy === 'name' ? 'bg-[var(--masters-green)] text-white' : 'bg-stone-100 text-stone-500'
+              sortBy === 'name' ? 'bg-[var(--usopen-navy)] text-white' : 'bg-stone-100 text-stone-500'
             }`}
           >
             A-Z
@@ -97,7 +97,7 @@ export default function EntrantsPage() {
             <button
               onClick={() => setSortBy('rank')}
               className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full transition-colors ${
-                sortBy === 'rank' ? 'bg-[var(--masters-green)] text-white' : 'bg-stone-100 text-stone-500'
+                sortBy === 'rank' ? 'bg-[var(--usopen-navy)] text-white' : 'bg-stone-100 text-stone-500'
               }`}
             >
               By Rank
@@ -124,8 +124,8 @@ export default function EntrantsPage() {
               <div
                 key={entrant.id}
                 className={`card card-hover flex items-center gap-3 !p-4 ${
-                  lbEntry?.rank === 1 && !isPre ? 'border-2 !border-[var(--masters-gold)]' : ''
-                } ${fav ? '!border-[var(--masters-green)] !border-opacity-40' : ''}`}
+                  lbEntry?.rank === 1 && !isPre ? 'border-2 !border-[var(--usopen-red)]' : ''
+                } ${fav ? '!border-[var(--usopen-navy)] !border-opacity-40' : ''}`}
               >
                 {/* Favourite star */}
                 <button
@@ -139,14 +139,14 @@ export default function EntrantsPage() {
                 >
                   <Star
                     size={16}
-                    className={fav ? 'text-[var(--masters-gold)] fill-[var(--masters-gold)]' : 'text-stone-300'}
+                    className={fav ? 'text-[var(--usopen-red)] fill-[var(--usopen-red)]' : 'text-stone-300'}
                   />
                 </button>
 
                 {/* Rank badge */}
                 {!isPre && lbEntry && (
                   <div className={`flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-full text-xs font-bold ${
-                    lbEntry.rank === 1 ? 'bg-[var(--masters-gold)] text-white' :
+                    lbEntry.rank === 1 ? 'bg-[var(--usopen-red)] text-white' :
                     lbEntry.rank === 2 ? 'bg-stone-300 text-stone-700' :
                     lbEntry.rank === 3 ? 'bg-amber-700 text-white' :
                     'bg-stone-100 text-stone-500'

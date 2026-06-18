@@ -103,7 +103,7 @@ export default function StatsPage() {
   return (
     <MobileShell>
       {/* Header */}
-      <div className="bg-[var(--masters-green)] px-6 pt-10 pb-4 border-b border-[var(--masters-gold)]">
+      <div className="bg-[var(--usopen-navy)] px-6 pt-10 pb-4 border-b border-[var(--usopen-red)]">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-1">Pick Analysis</p>
         <h1 className="text-xl font-serif font-bold text-white">Statistics</h1>
       </div>
@@ -112,11 +112,11 @@ export default function StatsPage() {
         {/* Key metrics */}
         <div className="grid grid-cols-3 gap-3">
           <div className="card !p-3 text-center">
-            <p className="text-xl font-bold text-[var(--masters-green)]">{uniqueGolfers}</p>
+            <p className="text-xl font-bold text-[var(--usopen-navy)]">{uniqueGolfers}</p>
             <p className="text-[9px] font-bold uppercase tracking-wider text-stone-400">Unique Picks</p>
           </div>
           <div className="card !p-3 text-center">
-            <p className="text-xl font-bold text-[var(--masters-gold)]">{totalPicks}</p>
+            <p className="text-xl font-bold text-[var(--usopen-red)]">{totalPicks}</p>
             <p className="text-[9px] font-bold uppercase tracking-wider text-stone-400">Total Picks</p>
           </div>
           <div className="card !p-3 text-center">
@@ -150,7 +150,7 @@ export default function StatsPage() {
               key={key}
               onClick={() => setTab(key)}
               className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full transition-colors ${
-                tab === key ? 'bg-[var(--masters-green)] text-white' : 'bg-stone-100 text-stone-500'
+                tab === key ? 'bg-[var(--usopen-navy)] text-white' : 'bg-stone-100 text-stone-500'
               }`}
             >
               {label}

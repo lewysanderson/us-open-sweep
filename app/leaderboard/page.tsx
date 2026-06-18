@@ -20,11 +20,11 @@ function EntryRow({ entry, expanded, onToggle, isPre }: {
   const prizeAmounts: Record<number, number> = { 1: prizes.first, 2: prizes.second, 3: prizes.third };
 
   return (
-    <div className={entry.rank <= 3 && !isPre ? 'bg-[var(--masters-gold)]/[0.03]' : ''}>
+    <div className={entry.rank <= 3 && !isPre ? 'bg-[var(--usopen-red)]/[0.03]' : ''}>
       <button onClick={onToggle} className="w-full flex items-center gap-2 px-3 py-[7px] hover:bg-stone-50/50 transition-colors">
         {/* Rank */}
         <span className={`w-6 text-center text-xs font-bold tabular-nums flex-shrink-0 ${
-          !isPre && entry.rank === 1 ? 'text-[var(--masters-gold)]' :
+          !isPre && entry.rank === 1 ? 'text-[var(--usopen-red)]' :
           !isPre && entry.rank <= 3 ? 'text-amber-700' :
           'text-stone-400'
         }`}>
@@ -36,7 +36,7 @@ function EntryRow({ entry, expanded, onToggle, isPre }: {
 
         {/* Prize */}
         {!isPre && entry.prize_position && (
-          <span className="text-[8px] font-bold bg-[var(--masters-gold)]/10 text-[var(--masters-gold-dark)] px-1.5 py-0.5 rounded flex-shrink-0">
+          <span className="text-[8px] font-bold bg-[var(--usopen-red)]/10 text-[var(--usopen-red-dark)] px-1.5 py-0.5 rounded flex-shrink-0">
             £{prizeAmounts[entry.prize_position]}
           </span>
         )}
@@ -57,7 +57,7 @@ function EntryRow({ entry, expanded, onToggle, isPre }: {
         <div className="px-3 pb-2.5 pt-0.5">
           <div className="flex items-center justify-between mb-1">
             <p className="text-[9px] font-bold uppercase tracking-wider text-stone-400">Team</p>
-            <Link href={`/entrants/${entry.entrant.id}`} className="text-[9px] font-bold uppercase tracking-wider text-[var(--masters-green)] hover:underline">
+            <Link href={`/entrants/${entry.entrant.id}`} className="text-[9px] font-bold uppercase tracking-wider text-[var(--usopen-navy)] hover:underline">
               Details →
             </Link>
           </div>
@@ -114,7 +114,7 @@ export default function LeaderboardPage() {
 
   return (
     <MobileShell>
-      <div className="bg-[var(--masters-green)] px-6 pt-10 pb-4 border-b border-[var(--masters-gold)]">
+      <div className="bg-[var(--usopen-navy)] px-6 pt-10 pb-4 border-b border-[var(--usopen-red)]">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-1">Sweep Standings</p>
         <h1 className="text-xl font-serif font-bold text-white">Leaderboard</h1>
       </div>

@@ -4,15 +4,15 @@
 
 @layer base {
   :root {
-    --masters-green: #006747;
-    --masters-green-dark: #004d35;
-    --masters-green-light: #008055;
-    --masters-green-lighter: #e8f5f1;
-    --masters-gold: #d4af37;
-    --masters-gold-dark: #b8941f;
-    --masters-gold-light: #f4e5b7;
-    --masters-navy: #001d3d;
-    --masters-cream: #faf9f7;
+    --usopen-navy: #002D72;
+    --usopen-navy-dark: #001a50;
+    --usopen-navy-light: #0038a8;
+    --usopen-navy-lighter: #e6edf8;
+    --usopen-red: #BF0D3E;
+    --usopen-red-dark: #8f0a2e;
+    --usopen-red-light: #f5d0d9;
+    --usopen-dark: #000d1f;
+    --usopen-cream: #f6f8fc;
   }
 
   html {
@@ -21,7 +21,7 @@
   }
 
   body {
-    @apply bg-[var(--masters-cream)] text-stone-900;
+    @apply bg-[var(--usopen-cream)] text-stone-900;
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
@@ -33,15 +33,15 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-[var(--masters-green)] hover:bg-[var(--masters-green-dark)] text-white font-semibold py-3.5 px-8 rounded-lg transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-premium uppercase tracking-wider text-sm;
+    @apply bg-[var(--usopen-navy)] hover:bg-[var(--usopen-navy-dark)] text-white font-semibold py-3.5 px-8 rounded-lg transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-premium uppercase tracking-wider text-sm;
   }
 
   .btn-secondary {
-    @apply bg-white hover:bg-stone-50 text-[var(--masters-green)] font-semibold py-3.5 px-8 rounded-lg transition-all duration-300 border-2 border-[var(--masters-green)] active:scale-[0.98] uppercase tracking-wider text-sm;
+    @apply bg-white hover:bg-stone-50 text-[var(--usopen-navy)] font-semibold py-3.5 px-8 rounded-lg transition-all duration-300 border-2 border-[var(--usopen-navy)] active:scale-[0.98] uppercase tracking-wider text-sm;
   }
 
   .btn-gold {
-    @apply bg-[var(--masters-gold)] hover:bg-[var(--masters-gold-dark)] text-white font-bold py-3.5 px-8 rounded-lg transition-all duration-300 active:scale-[0.98] shadow-gold uppercase tracking-wider text-sm;
+    @apply bg-[var(--usopen-red)] hover:bg-[var(--usopen-red-dark)] text-white font-bold py-3.5 px-8 rounded-lg transition-all duration-300 active:scale-[0.98] shadow-gold uppercase tracking-wider text-sm;
   }
 
   .card {
@@ -53,7 +53,7 @@
   }
 
   .input {
-    @apply w-full px-4 py-3 bg-white border-2 border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--masters-green)] focus:border-[var(--masters-green)] text-stone-900 placeholder:text-stone-400 transition-all;
+    @apply w-full px-4 py-3 bg-white border-2 border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--usopen-navy)] focus:border-[var(--usopen-navy)] text-stone-900 placeholder:text-stone-400 transition-all;
   }
 
   .label {
@@ -89,7 +89,7 @@
   }
 
   .nav-item-active {
-    @apply nav-item text-[var(--masters-green)];
+    @apply nav-item text-[var(--usopen-navy)];
   }
 
   .nav-item-inactive {
@@ -105,11 +105,11 @@
   background: rgba(0, 0, 0, 0.02);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--masters-green);
+  background: var(--usopen-navy);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--masters-green-dark);
+  background: var(--usopen-navy-dark);
 }
 
 /* Premium animations */
@@ -143,7 +143,7 @@
 
 /* Subtle gradient background */
 .premium-bg {
-  background: linear-gradient(180deg, var(--masters-cream) 0%, #ffffff 100%);
+  background: linear-gradient(180deg, var(--usopen-cream) 0%, #ffffff 100%);
 }
 
 /* Gold accent line */
@@ -157,7 +157,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--masters-gold) 0%, transparent 100%);
+  background: linear-gradient(90deg, var(--usopen-red) 0%, transparent 100%);
 }
 
 /* Premium card hover effect */

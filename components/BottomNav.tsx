@@ -25,7 +25,7 @@ export default function BottomNav() {
               <Icon size={20} strokeWidth={active ? 2.5 : 2} />
               <span className="text-[10px]">{label}</span>
               {active && (
-                <div className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-[var(--masters-gold)] rounded-full" />
+                <div className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-[var(--usopen-red)] rounded-full" />
               )}
             </Link>
           );

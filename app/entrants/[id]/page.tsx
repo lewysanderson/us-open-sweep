@@ -178,7 +178,7 @@ export default function EntrantDetailPage({ params }: { params: { id: string } }
         <div className="p-5 pt-16">
           <div className="card p-6 text-center">
             <p className="text-stone-600 font-semibold mb-2">Entrant not found</p>
-            <Link href="/entrants" className="text-[var(--masters-green)] text-sm font-semibold hover:underline">
+            <Link href="/entrants" className="text-[var(--usopen-navy)] text-sm font-semibold hover:underline">
               Back to Entrants
             </Link>
           </div>
@@ -220,7 +220,7 @@ export default function EntrantDetailPage({ params }: { params: { id: string } }
   return (
     <MobileShell>
       {/* Header */}
-      <div className="bg-[var(--masters-green)] px-5 pt-10 pb-4 border-b border-[var(--masters-gold)]">
+      <div className="bg-[var(--usopen-navy)] px-5 pt-10 pb-4 border-b border-[var(--usopen-red)]">
         <Link href="/entrants" className="text-white/50 text-[10px] font-bold flex items-center gap-1 mb-2 hover:text-white/80 uppercase tracking-[0.15em] transition-colors">
           <ArrowLeft size={12} />
           Entrants
@@ -235,7 +235,7 @@ export default function EntrantDetailPage({ params }: { params: { id: string } }
             <Star
               size={18}
               className={isFavourite(entrant.id)
-                ? 'text-[var(--masters-gold)] fill-[var(--masters-gold)]'
+                ? 'text-[var(--usopen-red)] fill-[var(--usopen-red)]'
                 : 'text-white/30 hover:text-white/60'
               }
             />
@@ -248,7 +248,7 @@ export default function EntrantDetailPage({ params }: { params: { id: string } }
             <div className="flex items-center gap-2 text-white/90">
               <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/15 text-xs font-bold">
                 {leaderboardEntry.rank <= 3 ? (
-                  <Trophy size={12} className="text-[var(--masters-gold)]" />
+                  <Trophy size={12} className="text-[var(--usopen-red)]" />
                 ) : (
                   leaderboardEntry.rank
                 )}

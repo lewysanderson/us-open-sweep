@@ -66,7 +66,7 @@ export default function PlayersPage() {
 
   return (
     <MobileShell>
-      <div className="bg-[var(--masters-green)] px-6 pt-10 pb-4 border-b border-[var(--masters-gold)]">
+      <div className="bg-[var(--usopen-navy)] px-6 pt-10 pb-4 border-b border-[var(--usopen-red)]">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-1">
           {data ? `${data.golfers.length} Competitors` : 'Tournament Field'}
         </p>
@@ -100,7 +100,7 @@ export default function PlayersPage() {
               key={key}
               onClick={() => setFilter(key)}
               className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                filter === key ? 'bg-[var(--masters-green)] text-white' : 'bg-stone-100 text-stone-500'
+                filter === key ? 'bg-[var(--usopen-navy)] text-white' : 'bg-stone-100 text-stone-500'
               }`}
             >
               {label}

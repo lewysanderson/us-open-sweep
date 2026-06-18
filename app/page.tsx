@@ -86,7 +86,7 @@ export default function HomePage() {
   return (
     <MobileShell>
       {/* Header */}
-      <div className="bg-[var(--masters-green)] text-white px-6 pt-10 pb-5 border-b border-[var(--masters-gold)]">
+      <div className="bg-[var(--usopen-navy)] text-white px-6 pt-10 pb-5 border-b border-[var(--usopen-red)]">
         <div className="text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-1">The RLB Sweep 2026</p>
           <h1 className="text-2xl font-serif font-bold tracking-tight">
@@ -132,7 +132,7 @@ export default function HomePage() {
         {favsLoaded && favouriteEntrants.length > 0 && (
           <div>
             <div className="flex items-center gap-1.5 mb-3">
-              <Star size={14} className="text-[var(--masters-gold)] fill-[var(--masters-gold)]" />
+              <Star size={14} className="text-[var(--usopen-red)] fill-[var(--usopen-red)]" />
               <h2 className="text-lg font-serif font-bold text-stone-900">My Team</h2>
             </div>
             <div className="space-y-2">
@@ -171,12 +171,12 @@ export default function HomePage() {
                   <Link
                     key={entrant.id}
                     href={`/entrants/${entrant.id}`}
-                    className="card card-hover !p-0 overflow-hidden border-[var(--masters-green)]/20"
+                    className="card card-hover !p-0 overflow-hidden border-[var(--usopen-navy)]/20"
                   >
                     {/* Header bar */}
-                    <div className="flex items-center justify-between px-4 py-3 bg-[var(--masters-green)]/[0.04] border-b border-stone-100">
+                    <div className="flex items-center justify-between px-4 py-3 bg-[var(--usopen-navy)]/[0.04] border-b border-stone-100">
                       <div className="flex items-center gap-2">
-                        <Star size={12} className="text-[var(--masters-gold)] fill-[var(--masters-gold)]" />
+                        <Star size={12} className="text-[var(--usopen-red)] fill-[var(--usopen-red)]" />
                         <p className="font-bold text-sm text-stone-900">{entrant.name}</p>
                       </div>
                       <div className="flex items-center gap-2">
@@ -234,7 +234,7 @@ export default function HomePage() {
 
         {/* Post-tournament banner */}
         {isPost && (
-          <div className="bg-gradient-to-r from-[var(--masters-gold)] to-[var(--masters-gold-dark)] text-white px-5 py-4 rounded-xl shadow-gold text-center">
+          <div className="bg-gradient-to-r from-[var(--usopen-red)] to-[var(--usopen-red-dark)] text-white px-5 py-4 rounded-xl shadow-gold text-center">
             <Award size={20} className="mx-auto mb-1" />
             <p className="font-bold uppercase tracking-wider text-sm">Tournament Complete</p>
           </div>
@@ -243,11 +243,11 @@ export default function HomePage() {
         {/* Stats cards */}
         <div className="grid grid-cols-3 gap-3">
           <div className="card !p-4 text-center">
-            <p className="text-2xl font-serif font-bold text-[var(--masters-green)]">{ENTRANTS.length}</p>
+            <p className="text-2xl font-serif font-bold text-[var(--usopen-navy)]">{ENTRANTS.length}</p>
             <p className="text-[10px] font-bold uppercase tracking-wider text-stone-400 mt-1">Entrants</p>
           </div>
           <div className="card !p-4 text-center">
-            <p className="text-2xl font-serif font-bold text-[var(--masters-gold)]">&pound;{totalPot}</p>
+            <p className="text-2xl font-serif font-bold text-[var(--usopen-red)]">&pound;{totalPot}</p>
             <p className="text-[10px] font-bold uppercase tracking-wider text-stone-400 mt-1">Prize Pool</p>
           </div>
           <div className="card !p-4 text-center">
@@ -261,7 +261,7 @@ export default function HomePage() {
           <h3 className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-3">Prize Split</h3>
           <div className="flex items-center gap-3">
             {[
-              { pos: '1st', amount: prizes.first, color: 'bg-[var(--masters-gold)]' },
+              { pos: '1st', amount: prizes.first, color: 'bg-[var(--usopen-red)]' },
               { pos: '2nd', amount: prizes.second, color: 'bg-stone-300' },
               { pos: '3rd', amount: prizes.third, color: 'bg-amber-700' },
             ].map(({ pos, amount, color }) => (
@@ -281,7 +281,7 @@ export default function HomePage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg font-serif font-bold text-stone-900">Sweep Leaders</h2>
-              <Link href="/leaderboard" className="text-xs font-bold text-[var(--masters-green)] uppercase tracking-wider">
+              <Link href="/leaderboard" className="text-xs font-bold text-[var(--usopen-navy)] uppercase tracking-wider">
                 View All <ChevronRight size={12} className="inline" />
               </Link>
             </div>
@@ -291,11 +291,11 @@ export default function HomePage() {
                   key={entry.entrant.id}
                   href={`/entrants/${entry.entrant.id}`}
                   className={`card card-hover flex items-center gap-3 !p-3.5 ${
-                    idx === 0 ? 'border-2 !border-[var(--masters-gold)]' : ''
+                    idx === 0 ? 'border-2 !border-[var(--usopen-red)]' : ''
                   }`}
                 >
                   <div className={`flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${
-                    idx === 0 ? 'bg-[var(--masters-gold)] text-white' :
+                    idx === 0 ? 'bg-[var(--usopen-red)] text-white' :
                     idx === 1 ? 'bg-stone-300 text-stone-700' :
                     idx === 2 ? 'bg-amber-700 text-white' :
                     'bg-stone-100 text-stone-500'
@@ -324,7 +324,7 @@ export default function HomePage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg font-serif font-bold text-stone-900">Tournament Leaders</h2>
-              <Link href="/players" className="text-xs font-bold text-[var(--masters-green)] uppercase tracking-wider">
+              <Link href="/players" className="text-xs font-bold text-[var(--usopen-navy)] uppercase tracking-wider">
                 All Players <ChevronRight size={12} className="inline" />
               </Link>
             </div>
@@ -357,15 +357,15 @@ export default function HomePage() {
         {/* Quick links */}
         <div className="grid grid-cols-3 gap-3">
           <Link href="/entrants" className="card card-hover !p-3 text-center">
-            <Users size={18} className="mx-auto mb-1.5 text-[var(--masters-green)]" />
+            <Users size={18} className="mx-auto mb-1.5 text-[var(--usopen-navy)]" />
             <p className="text-xs font-bold text-stone-700">Find My Team</p>
           </Link>
           <Link href="/stats" className="card card-hover !p-3 text-center">
-            <TrendingUp size={18} className="mx-auto mb-1.5 text-[var(--masters-green)]" />
+            <TrendingUp size={18} className="mx-auto mb-1.5 text-[var(--usopen-navy)]" />
             <p className="text-xs font-bold text-stone-700">Pick Analysis</p>
           </Link>
           <button onClick={() => setShowRules(true)} className="card card-hover !p-3 text-center">
-            <BookOpen size={18} className="mx-auto mb-1.5 text-[var(--masters-green)]" />
+            <BookOpen size={18} className="mx-auto mb-1.5 text-[var(--usopen-navy)]" />
             <p className="text-xs font-bold text-stone-700">Rules</p>
           </button>
         </div>
@@ -391,7 +391,7 @@ export default function HomePage() {
             <div className="overflow-y-auto px-5 py-4 pb-6 space-y-4" style={{ maxHeight: 'calc(85vh - 4rem - 52px)' }}>
               {/* Team Selection */}
               <div>
-                <h3 className="text-xs font-bold text-[var(--masters-green)] uppercase tracking-wider mb-2">Team Selection</h3>
+                <h3 className="text-xs font-bold text-[var(--usopen-navy)] uppercase tracking-wider mb-2">Team Selection</h3>
                 <p className="text-sm text-stone-600 mb-2">Each entrant picks <strong>7 golfers</strong> from three tiers:</p>
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2.5 p-2.5 bg-amber-50 rounded-lg">
@@ -426,22 +426,22 @@ export default function HomePage() {
 
               {/* Scoring */}
               <div>
-                <h3 className="text-xs font-bold text-[var(--masters-green)] uppercase tracking-wider mb-2">Scoring</h3>
+                <h3 className="text-xs font-bold text-[var(--usopen-navy)] uppercase tracking-wider mb-2">Scoring</h3>
                 <ul className="space-y-1.5 text-sm text-stone-700">
                   <li className="flex gap-2">
-                    <span className="text-[var(--masters-gold)] font-bold">1.</span>
+                    <span className="text-[var(--usopen-red)] font-bold">1.</span>
                     Your <strong>best 4 scores</strong> out of 7 golfers count
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-[var(--masters-gold)] font-bold">2.</span>
+                    <span className="text-[var(--usopen-red)] font-bold">2.</span>
                     Scores are cumulative over all 4 rounds (total to par)
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-[var(--masters-gold)] font-bold">3.</span>
+                    <span className="text-[var(--usopen-red)] font-bold">3.</span>
                     Missed cut = score <strong>doubled</strong> as penalty
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-[var(--masters-gold)] font-bold">4.</span>
+                    <span className="text-[var(--usopen-red)] font-bold">4.</span>
                     <strong>Lowest combined score wins</strong>
                   </li>
                 </ul>
@@ -452,15 +452,15 @@ export default function HomePage() {
                 <h3 className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-1.5">Example</h3>
                 <p className="text-sm text-stone-600">7 golfers finish: <strong>-8, -5, -3, -1, +2, +4, CUT(+6)</strong></p>
                 <p className="text-xs text-stone-400 mt-1">Best 4: -8, -5, -3, -1</p>
-                <p className="text-sm font-bold text-[var(--masters-green)] mt-1">Total = -17</p>
+                <p className="text-sm font-bold text-[var(--usopen-navy)] mt-1">Total = -17</p>
               </div>
 
               {/* Prizes */}
               <div>
-                <h3 className="text-xs font-bold text-[var(--masters-green)] uppercase tracking-wider mb-2">Prizes</h3>
+                <h3 className="text-xs font-bold text-[var(--usopen-navy)] uppercase tracking-wider mb-2">Prizes</h3>
                 <div className="space-y-2">
                   {[
-                    { pos: '1st Place (70%)', amount: prizes.first, color: 'bg-[var(--masters-gold)]' },
+                    { pos: '1st Place (70%)', amount: prizes.first, color: 'bg-[var(--usopen-red)]' },
                     { pos: '2nd Place (20%)', amount: prizes.second, color: 'bg-stone-400' },
                     { pos: '3rd Place (10%)', amount: prizes.third, color: 'bg-amber-700' },
                   ].map(({ pos, amount, color }) => (

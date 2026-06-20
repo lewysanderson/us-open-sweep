@@ -109,7 +109,6 @@ export function mapESPNToGolfer(competitor: ESPNCompetitor, bucket: GolferBucket
   // If the current round index has no data but player has a score, they may not have started
   const completedHoles = thruHole || 0;
   const onCourse = completedHoles > 0 && completedHoles < 18;
-  const finishedRound = completedHoles === 18;
   
   // Today's score (current round's displayValue)
   let todayScore: number | null = null;
@@ -118,32 +117,27 @@ export function mapESPNToGolfer(competitor: ESPNCompetitor, bucket: GolferBucket
   }
   
   // Determine status
-  // ESPN does NOT provide an explicit "cut" status field. Instead, cut must be
-  // inferred from the linescores structure:
-  // - Made cut: 4 linescores (Round 4 placeholder present)
-  // - Missed cut: fewer linescores, last entry is a sentinel (value=0, displayValue="-")
+  // ESPN has no explicit cut status field — detect from linescore sentinel pattern:
+  // A missed-cut player has a zeroed-out placeholder round (value=0, displayValue="-",
+  // no hole-by-hole data) appended after their last real round.
+  // We check this regardless of current round number so detection fires correctly
+  // during the R2→R3 transition when ESPN may still report period=2.
   const statusType = competitor.status?.type?.toLowerCase();
   let status: GolferStatus = 'active';
   if (statusType === 'cut' || statusType?.includes('cut')) {
     status = 'cut';
   } else if (statusType === 'wd' || statusType?.includes('withdraw')) {
     status = 'withdrawn';
-  } else if (round >= 3 && rounds.length > 0) {
-    // After round 2 is complete, detect cut from linescores structure
-    // Cut golfers have fewer linescores and their last entry is a zeroed-out sentinel
+  } else if (rounds.length >= 2) {
     const lastRound = rounds[rounds.length - 1];
-    const isSentinel = lastRound && 
-      lastRound.value !== undefined && 
-      lastRound.value === 0 && 
-      (lastRound.displayValue === '-' || lastRound.displayValue === undefined);
-    
-    // If tournament is in round 3+ but golfer only has entries up to round 2
-    // (the sentinel round 3 entry doesn't count as a real round)
+    const isSentinel = lastRound &&
+      lastRound.value !== undefined &&
+      lastRound.value === 0 &&
+      (lastRound.displayValue === '-' || lastRound.displayValue === undefined) &&
+      !lastRound.linescores?.length; // no hole-by-hole data distinguishes sentinel from R1 in-progress
     if (isSentinel && rounds.length < 4) {
       status = 'cut';
     }
-  } else if (finishedRound) {
-    status = 'active'; // Still active, just finished today's round
   }
   
   return {
